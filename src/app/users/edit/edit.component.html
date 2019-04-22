@@ -1,0 +1,58 @@
+<kendo-window title="Edit"
+              [width]="450"
+              [resizable]="false"
+              (close)="close()">
+  <kendo-window-titlebar>
+    <div class='k-window-title'>Edit {{ (user$ | async)?.firstName + ' ' + (user$ | async).lastName}}</div>
+    <button kendoWindowCloseAction></button>
+  </kendo-window-titlebar>
+
+  <form [formGroup]="editUserForm"
+        (ngSubmit)="editUser()"
+        (keyup.enter)="editUser()">
+
+    <mat-form-field class="col-lg-12">
+      <input matInput placeholder="First name" name="firstName" formControlName="firstName">
+      <mat-error *ngIf="editUserForm.get('firstName').dirty && editUserForm.get('firstName').hasError('required')">
+        First name is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="col-lg-12">
+      <input matInput placeholder="Last name" name="lastName" formControlName="lastName">
+      <mat-error *ngIf="editUserForm.get('lastName').dirty && editUserForm.get('lastName').hasError('required')">
+        Last name is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+<!--    DATE PICKER HERE -->
+    <app-date-picker (dateChange)="dateChange($event)" [selectedDate]="(user$ | async)?.dateOfBirth"></app-date-picker>
+
+    <mat-form-field class="col-lg-12">
+      <input matInput placeholder="City" name="city" formControlName="city">
+      <mat-error *ngIf="editUserForm.get('city').dirty && editUserForm.get('city').hasError('required')">
+        City is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+
+    <mat-form-field class="col-lg-12">
+      <mat-label>Country</mat-label>
+      <mat-select name="country" formControlName="country">
+        <mat-option>--</mat-option>
+        <mat-option *ngFor="let country of countries" [value]="country.name">
+          {{ country.name }} ({{ country.iso }})
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="editUserForm.get('country').dirty && editUserForm.get('country').hasError('required')">
+        Country is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <div class="text-right">
+      <button type="button" class="k-button" (click)="close()">Cancel</button>
+      <button class="k-button k-primary" >{{ isEdit ? 'Update' : 'Add' }}</button>
+    </div>
+  </form>
+
+</kendo-window>

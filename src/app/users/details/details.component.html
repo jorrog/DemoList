@@ -1,0 +1,22 @@
+
+<div class="row" *ngIf="(user$ | async).id">
+  <div class="col-lg-12">
+    <div class="well well-sm">
+      <div class="row">
+        <div class="col-lg-8">
+          <h4>{{ (user$ | async)?.firstName}} {{ (user$ | async)?.lastName}}</h4>
+
+          <small class="margin-bottom-5">
+            <cite title="{{ (user$ | async)?.city}}">{{ (user$ | async)?.city}}
+              <i class="glyphicon glyphicon-map-marker"></i>
+            </cite>
+          </small>
+          <div>
+            <cite >Date of birth: </cite>
+            <strong>{{ (user$ | async)?.dateOfBirth}}</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,12 @@
+<form class="row align-items-center justify-content-start"
+      [formGroup]="searchForm"
+      (keyup.enter)="onSearchSubmit()">
+
+  <mat-form-field class="example-full-width">
+    <input
+           formControlName="searchTerm"
+           matInput>
+    <button mat-button (click)="onSearchSubmit()">Search</button>
+  </mat-form-field>
+
+</form>
